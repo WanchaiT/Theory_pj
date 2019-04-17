@@ -1,4 +1,3 @@
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.awt.BasicStroke;
@@ -25,10 +24,8 @@ import javax.swing.JFrame;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -54,7 +51,6 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         System.out.println("  + click line at character on middle line for select");
         System.out.println("  + click in circle state for select");
     }
-
     Canvas c;
     String mode = "state"; //state,transition
     Font sanSerifFont = new Font("SanSerif", Font.PLAIN, 24);
@@ -83,7 +79,11 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 
         // add keyboard listener 
         c.addKeyListener(this);
-
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                System.exit(0);
+            }
+        });
         add(c);
         setSize(1000, 1000);
         show();
@@ -242,15 +242,16 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         }
         return nextState;
     }
-    public Transition getTransition(State q,State r){
-        for(Transition t:transitions){
-            if(t.stateA==q&&t.stateB==r){
+
+    public Transition getTransition(State q, State r) {
+        for (Transition t : transitions) {
+            if (t.stateA == q && t.stateB == r) {
                 return t;
             }
         }
         return null;
     }
-    
+
     public ArrayList<ArrayList<State>> getAllStepFromStr(String str) {
         ArrayList<ArrayList<State>> allStep = new ArrayList<>();
         State s = getStartState();
@@ -674,8 +675,14 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                         if (t.stateA == s || t.stateB == s) {
                             int difx = x - s.x;
                             int dify = y - s.y;
-                            t.curveX += difx;
-                            t.curveY += dify;
+                            if (t.stateA != null) {
+                                t.curveX = (t.stateA.x + t.stateB.x) / 2;
+                                t.curveY = (t.stateA.y + t.stateB.y) / 2;
+                            } else {
+                                t.curveX = difx;
+                                t.curveY = dify;
+                            }
+
                             t.xSelf += difx;
                             t.ySelf += dify;
 
@@ -927,7 +934,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 
     @Override
     public void actionPerformed(ActionEvent ae) { // button
-
+        System.out.println("exit");
     }
 
     // 3.3 NFA to regular expression (start)
