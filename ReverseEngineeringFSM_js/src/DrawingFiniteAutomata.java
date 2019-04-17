@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
+import javax.swing.JButton;
 
 public class DrawingFiniteAutomata extends JFrame implements MouseListener, MouseMotionListener, ActionListener, KeyListener {
 
@@ -55,7 +56,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     String mode = "state"; //state,transition
     Font sanSerifFont = new Font("SanSerif", Font.PLAIN, 24);
     Object selected = null;
-
+    JButton btn2 = new JButton();
+		
     ArrayList<State> states = new ArrayList<>();
     ArrayList<Transition> transitions = new ArrayList<>();
     ArrayList<String> alphabet = new ArrayList<>();
@@ -84,6 +86,9 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                 System.exit(0);
             }
         });
+        btn2.setText("Button 2");
+		btn2.setBounds(111, 74, 128, 23);
+		getContentPane().add(btn2);
         add(c);
         setSize(1000, 1000);
         show();

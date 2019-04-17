@@ -15,6 +15,8 @@ public class GUIDrawingFiniteAutomata extends javax.swing.JFrame {
      */
     public GUIDrawingFiniteAutomata() {
         initComponents();
+        canvas1 = drawAutomata.c;
+        
     }
 
     /**
@@ -34,7 +36,6 @@ public class GUIDrawingFiniteAutomata extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(102, 204, 255));
-        setPreferredSize(new java.awt.Dimension(1280, 777));
         setSize(new java.awt.Dimension(1280, 777));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -128,7 +129,7 @@ public class GUIDrawingFiniteAutomata extends javax.swing.JFrame {
             }
         });
     }
-    
+    DrawingFiniteAutomata drawAutomata = new DrawingFiniteAutomata();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Canvas canvas1;
     private javax.swing.JDesktopPane jDesktopPane1;
