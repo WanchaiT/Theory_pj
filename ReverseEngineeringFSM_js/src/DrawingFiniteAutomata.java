@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 import javax.swing.JButton;
+import javax.swing.JTextField;
 
 public class DrawingFiniteAutomata extends JFrame implements MouseListener, MouseMotionListener, ActionListener, KeyListener {
 
@@ -56,13 +57,19 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     String mode = "state"; //state,transition
     Font sanSerifFont = new Font("SanSerif", Font.PLAIN, 24);
     Object selected = null;
-    JButton btn2 = new JButton();
+    
+    
 		
     ArrayList<State> states = new ArrayList<>();
     ArrayList<Transition> transitions = new ArrayList<>();
     ArrayList<String> alphabet = new ArrayList<>();
 
     Temp temp = null; //temp link
+    
+    //-----###
+    JButton runButt = new JButton();
+    JTextField inString = new JTextField();
+    //-----###
 
     DrawingFiniteAutomata() {
         super("canvas");
@@ -86,13 +93,42 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                 System.exit(0);
             }
         });
-        btn2.setText("Button 2");
-		btn2.setBounds(111, 74, 128, 23);
-		getContentPane().add(btn2);
+        
+        //-----###
+       
+        inString.setToolTipText("");
+        inString.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
+            }
+        });
+        inString.setBounds(1200, 170, 150, 20);
+        getContentPane().add(inString);
+       
+        
+        runButt.setToolTipText("");
+        runButt.setText("Run");
+		runButt.setBounds(1200, 200, 128, 23);
+		getContentPane().add(runButt);
+                runButt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	
+                            
+			}
+		});
+        
+                
+                
+        //-----###     
         add(c);
-        setSize(1000, 1000);
+        setSize(1500, 1000);
         show();
     }
+    
+    //-----###
+    
+    //-----###
+    
+    
 
 //////////////////////////////// 0.Backup ////////////////////////////////
     class Backup {
