@@ -30,6 +30,7 @@ import java.util.Scanner;
 import java.util.Stack;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class DrawingFiniteAutomata extends JFrame implements MouseListener, MouseMotionListener, ActionListener, KeyListener {
 
@@ -68,7 +69,10 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     
     //-----###
     JButton runButt = new JButton();
+    JButton showInfoButt = new JButton();
     JTextField inString = new JTextField();
+    JLabel showStringLabel = new JLabel();
+    JLabel showInfoLabel = new JLabel();
     //-----###
 
     DrawingFiniteAutomata() {
@@ -97,11 +101,11 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         //-----###
        
         inString.setToolTipText("");
-        inString.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inString.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                 
-            }
-        });
+                        }
+                });
         inString.setBounds(1200, 170, 150, 20);
         getContentPane().add(inString);
        
@@ -112,11 +116,26 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 		getContentPane().add(runButt);
                 runButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-                            
+                            runAction(e);
 			}
 		});
-        
                 
+        showStringLabel.setText("");
+                getContentPane().add(showStringLabel);
+                showStringLabel.setBounds(1200, 230, 150, 20);
+        
+        showInfoButt.setText("Show Info");
+                showInfoButt.setBounds(1200, 200, 128, 23);
+		getContentPane().add(showInfoButt);
+                showInfoButt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	
+                            ///runAction(e); add method 
+			}
+		});
+                
+        showInfoLabel.setText("");
+                getContentPane().add(showInfoLabel);
+                showInfoLabel.setBounds(1200, 260, 150, 20);
                 
         //-----###     
         add(c);
@@ -125,7 +144,9 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     }
     
     //-----###
-    
+    void runAction(ActionEvent e){
+        showString.setText("eiei");
+    }
     //-----###
     
     
