@@ -76,23 +76,24 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     //-----###s
     JFrame frameInfo = new JFrame("Info");
     JFrame frameStep = new JFrame("Step");
-    JFrame frameSaveBrow = new JFrame("Save");
-    JFrame frameOpenBrow = new JFrame("Open");
+    JFrame frameRun = new JFrame("Run");
     
     JPanel boxShowInfo = new JPanel();
     JPanel boxShowStep = new JPanel();
     JPanel boxSave = new JPanel();
     JPanel boxOpen = new JPanel();
+    JPanel boxRun = new JPanel();
     
     JButton runButt = new JButton();
     JButton showInfoButt = new JButton();
     JButton saveButt = new JButton();
     JButton openButt = new JButton();
+    JButton okRunButt = new JButton();
     
     JFileChooser pathSave = new JFileChooser();
     JFileChooser pathOpen = new JFileChooser();
     
-    JTextField inString = new JTextField();
+    JTextField inString = new JTextField(40);
     
     JLabel showStringLabel = new JLabel();
     JLabel showInfoLabel = new JLabel("",SwingConstants.CENTER);
@@ -132,22 +133,18 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         frameStep.add(boxShowStep);
         
         boxSave.setBackground(Color.white);
-        frameSaveBrow.add(boxSave);
         
         boxOpen.setBackground(Color.white);
-        frameOpenBrow.add(boxOpen);
+        
+        boxRun.setBackground(Color.white);
+        frameRun.add(boxRun);
         
         msgEnterString.setText("Enter String");
-                msgEnterString.setBounds(1100, 200, 80, 20);
-                add(msgEnterString);
                 
         msgFile.setText("File");
                 msgFile.setBounds(1100, 130, 80, 20);
                 add(msgFile);
                 
-        inString.setToolTipText("");
-                inString.setBounds(1200, 200, 150, 20);
-                getContentPane().add(inString);
                 
         showCurrentFile.setBounds(1200, 130, 128, 23);
         //showCurrentFile.setAutoscrolls(true);
@@ -201,6 +198,14 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                             }
 			}
 		});
+        okRunButt.setText("Ok");
+                okRunButt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	
+                            System.out.println("rrr");
+                            frameRun.setVisible(false);
+                            okRunButtAction(e);
+			}
+		});                
         //-----###e     
         add(c);
         setSize(1500, 1000);
@@ -208,6 +213,14 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     }
     
     //-----###s
+    void okRunButtAction(ActionEvent e){
+//        showCurrentFile.setText(inString.getText());
+//        System.out.println(showCurrentFile.getText() + "eiei");
+
+       //frameRun.setVisible(false);
+        //System.exit(0);
+    }
+    
     void saveButtAction(ActionEvent e) throws IOException{
         pathSave.setBounds(60, 120, 750, 450);
         boxSave.add(pathSave);
@@ -242,31 +255,46 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     }
     
     void runButtAction(ActionEvent e){
-        String strAllStep = "";
-        ArrayList<ArrayList<State>> allStep = getAllStepFromStr(inString.getText().trim());
-        if (allStep == null) {
-            strAllStep = "error allStep is null";
-        }else {
-            for (int i = 0; i < allStep.size(); i++) {
-                strAllStep += "<html>path : " + (i + 1) + "<br/>";
-                ArrayList<State> all = allStep.get(i);
-                strAllStep += all.get(0).text;
+        boxRun.add(msgEnterString);
+        boxRun.add(inString);
+        boxRun.add(okRunButt);
+               
+                        
+
+        frameRun.add(boxRun);
+        frameRun.setSize(500,100);
+        frameRun.setVisible(true);
+        
                 
-                for (int j = 1; j < all.size(); j++) {
-                    if (all.get(j) == null) {
-                        strAllStep += " , " + "Tp";
-                        break;
-                    }
-                    strAllStep += " , " + all.get(j).text;
-                }
-            }
-        }
         
-        showStringLabel.setText(strAllStep);
-        boxShowStep.add(showStringLabel);
+                
+   
         
-        frameStep.setSize(500,300);
-        frameStep.setVisible(true);
+//        String strAllStep = "";
+//        ArrayList<ArrayList<State>> allStep = getAllStepFromStr(inString.getText().trim());
+//        if (allStep == null) {
+//            strAllStep = "error allStep is null";
+//        }else {
+//            for (int i = 0; i < allStep.size(); i++) {
+//                strAllStep += "<html>path : " + (i + 1) + "<br/>";
+//                ArrayList<State> all = allStep.get(i);
+//                strAllStep += all.get(0).text;
+//                
+//                for (int j = 1; j < all.size(); j++) {
+//                    if (all.get(j) == null) {
+//                        strAllStep += " , " + "Tp";
+//                        break;
+//                    }
+//                    strAllStep += " , " + all.get(j).text;
+//                }
+//            }
+//        }
+//        
+//        showStringLabel.setText(strAllStep);
+//        boxShowStep.add(showStringLabel);
+//        
+//        frameStep.setSize(500,300);
+//        frameStep.setVisible(true);
     }
     
     void showInfoButtAction(ActionEvent e){
@@ -274,7 +302,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         boxShowInfo.add(showInfoLabel);
         boxShowInfo.setAutoscrolls(true);
         
-        frameInfo.setSize(300,500);
+        frameInfo.setSize(200,500);
         frameInfo.setVisible(true);
     }
     
