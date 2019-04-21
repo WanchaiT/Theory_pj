@@ -15,6 +15,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.QuadCurve2D;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -29,8 +30,13 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class DrawingFiniteAutomata extends JFrame implements MouseListener, MouseMotionListener, ActionListener, KeyListener {
 
@@ -67,13 +73,33 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 
     Temp temp = null; //temp link
     
-    //-----###
+    //-----###s
+    JFrame frameInfo = new JFrame("Info");
+    JFrame frameStep = new JFrame("Step");
+    JFrame frameSaveBrow = new JFrame("Save");
+    JFrame frameOpenBrow = new JFrame("Open");
+    
+    JPanel boxShowInfo = new JPanel();
+    JPanel boxShowStep = new JPanel();
+    JPanel boxSave = new JPanel();
+    JPanel boxOpen = new JPanel();
+    
     JButton runButt = new JButton();
     JButton showInfoButt = new JButton();
+    JButton saveButt = new JButton();
+    JButton openButt = new JButton();
+    
+    JFileChooser pathSave = new JFileChooser();
+    JFileChooser pathOpen = new JFileChooser();
+    
     JTextField inString = new JTextField();
+    
     JLabel showStringLabel = new JLabel();
-    JLabel showInfoLabel = new JLabel();
-    //-----###
+    JLabel showInfoLabel = new JLabel("",SwingConstants.CENTER);
+    JLabel msgEnterString  = new JLabel();
+    JLabel msgFile = new JLabel();
+    JLabel showCurrentFile = new JLabel();
+    //-----###e
 
     DrawingFiniteAutomata() {
         super("canvas");
@@ -98,56 +124,166 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
             }
         });
         
-        //-----###
-       
-        inString.setToolTipText("");
-                inString.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
-                        }
-                });
-        inString.setBounds(1200, 170, 150, 20);
-        getContentPane().add(inString);
-       
+        //-----###s
+        boxShowInfo.setBackground(Color.white);
+        frameInfo.add(boxShowInfo);
         
+        boxShowStep.setBackground(Color.white);
+        frameStep.add(boxShowStep);
+        
+        boxSave.setBackground(Color.white);
+        frameSaveBrow.add(boxSave);
+        
+        boxOpen.setBackground(Color.white);
+        frameOpenBrow.add(boxOpen);
+        
+        msgEnterString.setText("Enter String");
+                msgEnterString.setBounds(1100, 200, 80, 20);
+                add(msgEnterString);
+                
+        msgFile.setText("File");
+                msgFile.setBounds(1100, 130, 80, 20);
+                add(msgFile);
+                
+        inString.setToolTipText("");
+                inString.setBounds(1200, 200, 150, 20);
+                getContentPane().add(inString);
+                
+        showCurrentFile.setBounds(1200, 130, 128, 23);
+        //showCurrentFile.setAutoscrolls(true);
+        getContentPane().add(showCurrentFile);
+                
         runButt.setToolTipText("");
         runButt.setText("Run");
-		runButt.setBounds(1200, 200, 128, 23);
+		runButt.setBounds(1200, 230, 128, 23);
 		getContentPane().add(runButt);
                 runButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-                            runAction(e);
+                            runButtAction(e);
 			}
 		});
-                
-        showStringLabel.setText("");
-                getContentPane().add(showStringLabel);
-                showStringLabel.setBounds(1200, 230, 150, 20);
         
         showInfoButt.setText("Show Info");
-                showInfoButt.setBounds(1200, 200, 128, 23);
+                showInfoButt.setBounds(1200, 290, 128, 23);
 		getContentPane().add(showInfoButt);
                 showInfoButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-                            ///runAction(e); add method 
+                            showInfoButtAction(e); 
 			}
 		});
                 
         showInfoLabel.setText("");
-                getContentPane().add(showInfoLabel);
-                showInfoLabel.setBounds(1200, 260, 150, 20);
+                //getContentPane().add(showInfoLabel);
+               // showInfoLabel.setBounds(1200, 290, 150, 400);
                 
-        //-----###     
+        saveButt.setText("save");
+                saveButt.setBounds(1100, 100, 128, 23);
+                getContentPane().add(saveButt);
+                saveButt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	
+                            try { 
+                                saveButtAction(e);
+                            } catch (IOException ex) {
+                                Logger.getLogger(DrawingFiniteAutomata.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+			}
+		});
+                
+        openButt.setText("open");
+                openButt.setBounds(1250, 100, 128, 23);
+                getContentPane().add(openButt);
+                openButt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	
+                            try { 
+                                openButtAction(e);
+                            } catch (IOException ex) {
+                                Logger.getLogger(DrawingFiniteAutomata.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+			}
+		});
+        //-----###e     
         add(c);
         setSize(1500, 1000);
         show();
     }
     
-    //-----###
-    void runAction(ActionEvent e){
-        showString.setText("eiei");
+    //-----###s
+    void saveButtAction(ActionEvent e) throws IOException{
+        pathSave.setBounds(60, 120, 750, 450);
+        boxSave.add(pathSave);
+        
+        int ret = pathSave.showDialog(null, "save");
+        String path = "";
+        
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            File filePath = pathSave.getSelectedFile();
+            path = filePath.getPath();
+            System.out.println(path);
+            save(path);
+        }
+        
     }
-    //-----###
+    
+    void openButtAction(ActionEvent e) throws IOException{
+        pathOpen.setBounds(60, 120, 750, 450);
+        boxOpen.add(pathOpen);
+        
+        int ret = pathOpen.showDialog(null, "open");
+        String path = "";
+        
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            File filePath = pathOpen.getSelectedFile();
+            path = filePath.getPath();
+            System.out.println(path);
+            open(path);
+        }
+        
+        showCurrentFile.setText(nameFile(path));
+    }
+    
+    void runButtAction(ActionEvent e){
+        String strAllStep = "";
+        ArrayList<ArrayList<State>> allStep = getAllStepFromStr(inString.getText().trim());
+        if (allStep == null) {
+            strAllStep = "error allStep is null";
+        }else {
+            for (int i = 0; i < allStep.size(); i++) {
+                strAllStep += "<html>path : " + (i + 1) + "<br/>";
+                ArrayList<State> all = allStep.get(i);
+                strAllStep += all.get(0).text;
+                
+                for (int j = 1; j < all.size(); j++) {
+                    if (all.get(j) == null) {
+                        strAllStep += " , " + "Tp";
+                        break;
+                    }
+                    strAllStep += " , " + all.get(j).text;
+                }
+            }
+        }
+        
+        showStringLabel.setText(strAllStep);
+        boxShowStep.add(showStringLabel);
+        
+        frameStep.setSize(500,300);
+        frameStep.setVisible(true);
+    }
+    
+    void showInfoButtAction(ActionEvent e){
+        showInfoLabel.setText(getInfoGame());
+        boxShowInfo.add(showInfoLabel);
+        boxShowInfo.setAutoscrolls(true);
+        
+        frameInfo.setSize(300,500);
+        frameInfo.setVisible(true);
+    }
+    
+    public String nameFile(String path){
+        int index = path.lastIndexOf("\\");
+        String name = path.substring(index+1 ,path.length());
+        return name;
+    }
+    //-----###e
     
     
 
@@ -208,6 +344,43 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
             }
         }
     }
+    
+    //-----###
+    public String getInfoGame() {
+        String info = "";
+
+        info += "<html>states={";
+        for (int i = 0; i < states.size() - 1; i++) {
+            info += states.get(i).text + " ";
+        }
+        info += states.get(states.size() - 1).text + "}<br/>";
+
+        info += "alphabet={";
+        for (int i = 0; i < alphabet.size() - 1; i++) {
+            info += alphabet.get(i) + " ";
+        }
+        info += alphabet.get(alphabet.size() - 1) + "}<br/>";
+
+        info += "transitions={<br/>";
+        for (Transition f : transitions) {
+            if (f.stateA == null) {
+                continue;
+            }
+            info += "\t" + f.stateA.text + "-" + f.text + "->" + f.stateB.text + "<br/>";
+        }
+        info += "}<br/>";
+
+        info += "initial state=" + getStartState().text + "<br/>";
+
+        info += "final states={";
+        ArrayList<State> acceptStates = getAcceptState();
+        for (int i = 0; i < acceptStates.size() - 1; i++) {
+            info += acceptStates.get(i).text + " ";
+        }
+        info += acceptStates.get(acceptStates.size() - 1).text + "}";
+        return info;
+    }
+    //-----###
 
     public String getInfo() {
         String info = "";
