@@ -158,8 +158,36 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                 System.exit(0);
             }
         });
+        
 
         //-----###s
+        //set font 
+        int fontSize = 17;
+        String font = "Serif";
+        Font fontObj = new Font(font , Font.PLAIN, fontSize);
+        
+        runButt.setFont(fontObj);
+        showInfoButt.setFont(fontObj);
+        saveButt.setFont(fontObj);
+        openButt.setFont(fontObj);
+        okRunButt.setFont(fontObj);
+        okRunButt2.setFont(fontObj);
+        run_1_Butt.setFont(fontObj);
+        run_2_Butt.setFont(fontObj);
+        stepByStepButt.setFont(fontObj);
+        runContinueButt.setFont(fontObj);
+        showStringAccButt.setFont(fontObj);
+        regExpToNFAButt.setFont(fontObj);
+        DFAToRegExpButt.setFont(fontObj);
+        
+        showStringAccLabel.setFont(fontObj);
+        showInfoLabel.setFont(fontObj); 
+        msgEnterString.setFont(fontObj);
+        msgFile.setFont(fontObj);
+        showCurrentFile.setFont(fontObj);
+        showReg.setFont(fontObj);
+        msgInString.setFont(fontObj);
+        myString.setFont(fontObj);
         //frame panel
         boxShowInfo.setBackground(Color.white);
         frameInfo.add(boxShowInfo);
@@ -184,24 +212,24 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         msgEnterString.setText("Enter String");
 
         msgFile.setText("File");
-        msgFile.setBounds(1100 + shift, 130, 80, 20);
+        msgFile.setBounds(1100 + shift, 130, 80, 23);
         add(msgFile);
         
         msgInString.setText("Input String");
-        msgInString.setBounds(1100 + shift, 160, 80, 20);
+        msgInString.setBounds(1100 + shift, 160, 100, 23);
         add(msgInString);
         
         myString.setText(inString.getText());
-        myString.setBounds(1200 + shift, 160,100 , 20);
+        myString.setBounds(1200 + shift, 160,100 , 23);
         add(myString);
 
-        showCurrentFile.setBounds(1200 + shift, 130, 128, 23);
+        showCurrentFile.setBounds(1200 + shift, 130, 150, 23);
         getContentPane().add(showCurrentFile);
         
 
         //button
         saveButt.setText("save");
-        saveButt.setBounds(1100 + shift, 100, 128, 23);
+        saveButt.setBounds(1100 + shift, 100, 150, 23);
         getContentPane().add(saveButt);
         saveButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -214,7 +242,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         });
 
         openButt.setText("open");
-        openButt.setBounds(1250 + shift, 100, 128, 23);
+        openButt.setBounds(1250 + shift, 100, 150, 23);
         getContentPane().add(openButt);
         openButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -227,7 +255,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         });
 
         runButt.setText("Run");
-        runButt.setBounds(1100 + shift, 200, 278, 23);
+        runButt.setBounds(1100 + shift, 200, 300, 23);
         getContentPane().add(runButt);
         runButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -249,11 +277,11 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
             }
         });
 
-        listPathRun.setBounds(1100 + shift, 230, 128, 23);
+        listPathRun.setBounds(1100 + shift, 230, 150, 23);
         getContentPane().add(listPathRun);
 
         stepByStepButt.setText("Step by Step");
-        stepByStepButt.setBounds(1250 + shift, 230, 128, 23);
+        stepByStepButt.setBounds(1250 + shift, 230, 150, 23);
         getContentPane().add(stepByStepButt);
         stepByStepButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -266,7 +294,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         });
 
         runContinueButt.setText("Run continue");
-        runContinueButt.setBounds(1250 + shift, 260, 128, 23);
+        runContinueButt.setBounds(1250 + shift, 260, 150, 23);
         getContentPane().add(runContinueButt);
         runContinueButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -279,7 +307,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         });
 
         showStringAccButt.setText("Show String Accept");
-        showStringAccButt.setBounds(1100 + shift, 320, 278, 23);
+        showStringAccButt.setBounds(1100 + shift, 320, 300, 23);
         getContentPane().add(showStringAccButt);
         showStringAccButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -288,7 +316,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         });
 
         regExpToNFAButt.setText("Regular Expression to NFA");
-        regExpToNFAButt.setBounds(1100 + shift, 350, 278, 23);
+        regExpToNFAButt.setBounds(1100 + shift, 350, 300, 23);
         getContentPane().add(regExpToNFAButt);
         regExpToNFAButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -297,7 +325,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         });
 
         DFAToRegExpButt.setText("DFA to Regular Expression");
-        DFAToRegExpButt.setBounds(1100 + shift, 410, 278, 23);
+        DFAToRegExpButt.setBounds(1100 + shift, 410, 300, 23);
         getContentPane().add(DFAToRegExpButt);
         DFAToRegExpButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -306,7 +334,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         });
 
         showInfoButt.setText("Show Info");
-        showInfoButt.setBounds(1100 + shift, 600, 278, 23);
+        showInfoButt.setBounds(1100 + shift, 600, 300, 23);
         getContentPane().add(showInfoButt);
         showInfoButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -326,7 +354,11 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 
     //-----###s
     void stepByStepButtAction(ActionEvent e) throws InterruptedException {
+        
         ArrayList<Object> path = createPath();
+        if(index>=path.size()){
+            index = 0;
+        }
         Object obj = path.get(index);
         if (obj instanceof State) {
             selected(((State) obj).x, ((State) obj).y);
@@ -334,7 +366,6 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
             selected(((Transition) obj).curveX, ((Transition) obj).curveY);
         }
         draw();
-        Thread.sleep(400);
         index ++;
         if(index>=path.size()){
             index = 0;
@@ -342,7 +373,6 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     }
 
     ArrayList<Object> createPath() {
-        index = 0;
         ArrayList<Object> path = new ArrayList<>();
         ArrayList<State> step = getAllStepFromStr(inString.getText().trim()).get(listPathRun.getSelectedIndex());
         for (Transition tt : transitions) {
@@ -374,6 +404,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
             draw();
             Thread.sleep(400);
         }
+        index = 0;
     }
 
     void DFAToRegExpButtAction(ActionEvent e) {
@@ -392,7 +423,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         boxRegToNFA.add(okRunButt2);
 
         frameRegToNFA.add(boxRegToNFA);
-        frameRegToNFA.setSize(500, 150);
+        frameRegToNFA.setBounds(x-250 ,y-75 ,500,150);
+        //frameRegToNFA.setSize(500, 150);
         frameRegToNFA.setVisible(true);
 
     }
@@ -478,34 +510,34 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 
     }
 
-    void showPathButtAction(ActionEvent e) {
-        String strAllStep = "";
-        ArrayList<ArrayList<State>> allStep = getAllStepFromStr(inString.getText().trim());
-        if (allStep == null) {
-            strAllStep = "error allStep is null";
-        } else {
-            for (int i = 0; i < allStep.size(); i++) {
-                strAllStep += "<html>path : " + (i + 1) + "<br/>";
-                ArrayList<State> all = allStep.get(i);
-                strAllStep += all.get(0).text;
-
-                for (int j = 1; j < all.size(); j++) {
-                    if (all.get(j) == null) {
-                        strAllStep += " , " + "Tp";
-                        break;
-                    }
-                    strAllStep += " , " + all.get(j).text;
-                }
-                strAllStep += "<br/>";
-            }
-        }
-
-        showStringAccLabel.setText(strAllStep);
-        boxShowStep.add(showStringAccLabel);
-
-        frameStep.setSize(500, 300);
-        frameStep.setVisible(true);
-    }
+//    void showPathButtAction(ActionEvent e) {
+//        String strAllStep = "";
+//        ArrayList<ArrayList<State>> allStep = getAllStepFromStr(inString.getText().trim());
+//        if (allStep == null) {
+//            strAllStep = "error allStep is null";
+//        } else {
+//            for (int i = 0; i < allStep.size(); i++) {
+//                strAllStep += "<html>path : " + (i + 1) + "<br/>";
+//                ArrayList<State> all = allStep.get(i);
+//                strAllStep += all.get(0).text;
+//
+//                for (int j = 1; j < all.size(); j++) {
+//                    if (all.get(j) == null) {
+//                        strAllStep += " , " + "Tp";
+//                        break;
+//                    }
+//                    strAllStep += " , " + all.get(j).text;
+//                }
+//                strAllStep += "<br/>";
+//            }
+//        }
+//
+//        showStringAccLabel.setText(strAllStep);
+//        boxShowStep.add(showStringAccLabel);
+//
+//        frameStep.setSize(500, 300);
+//        frameStep.setVisible(true);
+//    }
 
     void showStringAccButtAction(ActionEvent e) {
         String strAllStep = "<html>";
@@ -522,7 +554,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         showStringAccLabel.setText(strAllStep);
         boxShowStep.add(showStringAccLabel);
 
-        frameStep.setSize(600, 500);
+        //frameStep.setSize(600, 500);
+        frameStep.setBounds(x-300, y-250 , 600, 500);
         frameStep.setVisible(true);
     }
 
@@ -557,13 +590,13 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                         equation += (alphabet.get(j).trim() + "L" + getNextState(states.get(i), alphabet.get(j).trim()).get(0).text.trim());
                         count++;
                     } else {
-                        equation += ("⋃" + alphabet.get(j).trim() + "L" + getNextState(states.get(i), alphabet.get(j).trim()).get(0).text.trim());
+                        equation += ("?" + alphabet.get(j).trim() + "L" + getNextState(states.get(i), alphabet.get(j).trim()).get(0).text.trim());
                     }
 
                 }
             }
             if (getAcceptState().contains(states.get(i))) {
-                equation += ("⋃ε");
+                equation += ("?e");
             }
             equation1.add(equation);
         }
@@ -781,7 +814,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
             if (t.stateA == null) {
                 continue;
             }
-            if (t.stateA == s && t.text.equals("ε")) {
+            if (t.stateA == s && t.text.equals("e")) {
                 nextState.add(t.stateB);
             }
         }
@@ -860,8 +893,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 
     public ArrayList<String> getSubAlphabetStar(int n) {
         ArrayList<String> alpha = (ArrayList<String>) alphabet.clone();
-        if (alpha.contains("ε")) {
-            alpha.remove("ε");
+        if (alpha.contains("e")) {
+            alpha.remove("e");
         }
         ArrayList<String> subAlStar = (ArrayList<String>) alpha.clone();
 
@@ -876,8 +909,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
             temp = lenOld;
         }
 
-        if (alphabet.contains("ε")) {
-            subAlStar.add(0, "ε");
+        if (alphabet.contains("e")) {
+            subAlStar.add(0, "e");
         }
         return subAlStar;
     }
@@ -987,8 +1020,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
             Transition tp = new Transition(s, sr);
             q.trs.add(tp);
         }
-        if (!q.alp.contains("ε")) {
-            q.alp.add("ε");
+        if (!q.alp.contains("e")) {
+            q.alp.add("e");
         }
         for (String al : r.alp) {
             if (!q.alp.contains(al)) {
@@ -1023,8 +1056,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         q.trs.add(tr);
         q.trs.add(tr0);
 
-        if (!q.alp.contains("ε")) {
-            q.alp.add("ε");
+        if (!q.alp.contains("e")) {
+            q.alp.add("e");
         }
         return q;
     }
@@ -1061,8 +1094,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         q.trs.add(newTran2);
         q.trs.add(newTran3);
 
-        if (!q.alp.contains("ε")) {
-            q.alp.add("ε");
+        if (!q.alp.contains("e")) {
+            q.alp.add("e");
         }
         for (String al : r.alp) {
             if (!q.alp.contains(al)) {
@@ -1448,7 +1481,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
             Transition t = (Transition) selected;
             int status = (int) ke.getKeyChar();
             if (status == 8) {
-                t.text = "ε";
+                t.text = "e";
 
             } else if (status == 127) {
                 transitions.remove(selected);
@@ -1496,13 +1529,13 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                         equation += (alphabet.get(j).trim() + "L" + getNextState(states.get(i), alphabet.get(j).trim()).get(0).text.trim());
                         count++;
                     } else {
-                        equation += ("⋃" + alphabet.get(j).trim() + "L" + getNextState(states.get(i), alphabet.get(j).trim()).get(0).text.trim());
+                        equation += ("?" + alphabet.get(j).trim() + "L" + getNextState(states.get(i), alphabet.get(j).trim()).get(0).text.trim());
                     }
 
                 }
             }
             if (getAcceptState().contains(states.get(i))) {
-                equation += ("⋃ε");
+                equation += ("?e");
             }
             equation1.add(equation);
         }
@@ -1650,7 +1683,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                     int startSubString = 0;
                     int indexU;
                     while (true) {
-                        indexU = currentBlockEquation[1].indexOf("⋃", start);
+                        indexU = currentBlockEquation[1].indexOf("?", start);
                         if (indexU == -1) {
                             if (currentBlockRightEquation.size() != 0) {
                                 currentBlockRightEquation.add(currentBlockEquation[1].substring(startSubString));
@@ -1664,7 +1697,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                         start = indexU + 1;
                     }
                 } else {
-                    String temp[] = currentBlockEquation[1].split("⋃");
+                    String temp[] = currentBlockEquation[1].split("?");
                     currentBlockRightEquation = Arrays.asList(temp);
                 }
                 if (currentBlockRightEquation.size() != 0) {
@@ -1694,19 +1727,19 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                                 tempRightEquation += (currentBlockRightEquation.get(j));
                                 count++;
                             } else if (indexFirst != j && count != 0) {
-                                tempRightEquation += ("⋃" + currentBlockRightEquation.get(j));
+                                tempRightEquation += ("?" + currentBlockRightEquation.get(j));
                             } else if (indexFirst == j && afterTemp.length() != currentBlockEquation[0].length() && count == 0) {
                                 tempRightEquation += (currentBlockRightEquation.get(j));
                                 count++;
                             } else if (indexFirst == j && afterTemp.length() != currentBlockEquation[0].length() && count != 0) {
-                                tempRightEquation += ("⋃" + currentBlockRightEquation.get(j));
+                                tempRightEquation += ("?" + currentBlockRightEquation.get(j));
                             }
                         }
                         /*
-                        if(tempRightEquation.indexOf("⋃") != -1){
+                        if(tempRightEquation.indexOf("?") != -1){
                             tempRightEquation = ("("+tempRightEquation+")")
                         }*/
-                        if (tempRightEquation.contains("⋃")) {
+                        if (tempRightEquation.contains("?")) {
                             tempEquation += ("(" + tempRightEquation + ")");
                         } else {
                             tempEquation += (tempRightEquation);
@@ -1721,8 +1754,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 
                     }
                 }
-                if (temp.get(i).contains("ε") && !temp.get(i).contains("⋃ε")) {
-                    temp.add(i, temp.get(i).replace("ε", ""));
+                if (temp.get(i).contains("e") && !temp.get(i).contains("?e")) {
+                    temp.add(i, temp.get(i).replace("e", ""));
                     temp.remove(i + 1);
                 }
             }
@@ -1785,7 +1818,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                     int indexU;
                     ArrayList<String> currentBlockRightEquation = new ArrayList<>();
                     while (true) {
-                        indexU = currentBlockEquation[1].indexOf("⋃", start);
+                        indexU = currentBlockEquation[1].indexOf("?", start);
                         if (indexU == -1) {
                             if (currentBlockRightEquation.size() != 0) {
                                 currentBlockRightEquation.add(currentBlockEquation[1].substring(startSubString));
@@ -1807,7 +1840,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                             int indexEndBracket = currentBlockRightEquation.get(j).lastIndexOf(")");
                             int startAlphabet = indexStartBracket - 1;
                             while (true) {
-                                if (startAlphabet < 0 || currentBlockRightEquation.get(j).charAt(startAlphabet) == '⋃') {
+                                if (startAlphabet < 0 || currentBlockRightEquation.get(j).charAt(startAlphabet) == '?') {
                                     break;
                                 }
                                 startAlphabet = startAlphabet - 1;
@@ -1849,7 +1882,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                                 int indexULayer2;
                                 ArrayList<String> currentBlockRightEquationLayer2 = new ArrayList<>();
                                 while (true) {
-                                    indexULayer2 = textInBracket.indexOf("⋃", start);
+                                    indexULayer2 = textInBracket.indexOf("?", start);
                                     if (indexULayer2 == -1) {
                                         if (currentBlockRightEquationLayer2.size() != 0) {
                                             currentBlockRightEquationLayer2.add(textInBracket.substring(startSubStringLayer2));
@@ -1869,9 +1902,9 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                                     currentBlockRightEquationLayer2.add(m, alphabet + currentBlockRightEquationLayer2.get(m));
                                     currentBlockRightEquationLayer2.remove(m + 1);
                                 }
-                                for (int m = 0; m < currentBlockRightEquationLayer2.size(); m++) { //ตัดeออก
-                                    if (currentBlockRightEquationLayer2.get(m).contains("ε")) {
-                                        currentBlockRightEquationLayer2.add(m, currentBlockRightEquationLayer2.get(m).replace("ε", ""));
+                                for (int m = 0; m < currentBlockRightEquationLayer2.size(); m++) { //???e???
+                                    if (currentBlockRightEquationLayer2.get(m).contains("e")) {
+                                        currentBlockRightEquationLayer2.add(m, currentBlockRightEquationLayer2.get(m).replace("e", ""));
                                         currentBlockRightEquationLayer2.remove(m + 1);
                                     }
                                 }
@@ -1882,7 +1915,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                                         tempLayer2New += currentBlockRightEquationLayer2.get(m);
                                         countLayer2++;
                                     } else {
-                                        tempLayer2New += ("⋃" + currentBlockRightEquationLayer2.get(m));
+                                        tempLayer2New += ("?" + currentBlockRightEquationLayer2.get(m));
                                     }
 
                                 }
@@ -1890,13 +1923,13 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                                 allEquation.remove(i + 1);
 
                             } else {  //0Lq0U1 11*0U0
-                                if (textInBracket.indexOf("⋃") != -1) {
+                                if (textInBracket.indexOf("?") != -1) {
                                     //System.out.println("CASE2 <<");
-                                    String currentBlocktextInBracket[] = textInBracket.split("⋃");
-                                    for (int k = 0; k < currentBlocktextInBracket.length; k++) { //แจกแจงค่าข้างหน้าลงในแต่ละช่อง
+                                    String currentBlocktextInBracket[] = textInBracket.split("?");
+                                    for (int k = 0; k < currentBlocktextInBracket.length; k++) { //??????????????????????????????
                                         currentBlocktextInBracket[k] = alphabet + currentBlocktextInBracket[k];
-                                        if (currentBlocktextInBracket[k].contains("ε")) {
-                                            currentBlocktextInBracket[k] = currentBlocktextInBracket[k].replace("ε", "");
+                                        if (currentBlocktextInBracket[k].contains("e")) {
+                                            currentBlocktextInBracket[k] = currentBlocktextInBracket[k].replace("e", "");
                                         }
                                     }
                                     String tempNew = "";
@@ -1906,7 +1939,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                                             tempNew += currentBlocktextInBracket[m];
                                             count++;
                                         } else {
-                                            tempNew += ("⋃" + currentBlocktextInBracket[m]);
+                                            tempNew += ("?" + currentBlocktextInBracket[m]);
                                         }
 
                                     }
@@ -1928,7 +1961,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         public void group() {
             for (int i = 0; i < allEquation.size(); i++) {
                 String currentBlockEquation[] = allEquation.get(i).split("=");
-                if (!currentBlockEquation[1].contains("⋃")) {
+                if (!currentBlockEquation[1].contains("?")) {
                     continue;
                 }
                 List<String> currentBlockRightEquation = new ArrayList<>();
@@ -1956,7 +1989,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                     int startSubString = 0;
                     int indexU;
                     while (true) {
-                        indexU = currentBlockEquation[1].indexOf("⋃", start);
+                        indexU = currentBlockEquation[1].indexOf("?", start);
                         if (indexU == -1) {
                             currentBlockRightEquation.add(currentBlockEquation[1].substring(startSubString));
                             break;
@@ -1968,7 +2001,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                         start = indexU + 1;
                     }
                 } else {
-                    String temp[] = currentBlockEquation[1].split("⋃");
+                    String temp[] = currentBlockEquation[1].split("?");
                     currentBlockRightEquation = Arrays.asList(temp);
                 }
                 // System.out.println("Equation: "+(i+1));
@@ -1993,7 +2026,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                 }
 
                 for (int j = 0; j < currentBlockRightEquation.size(); j++) {
-                    if (!currentBlockRightEquation.get(j).contains("L") && currentBlockRightEquation.get(j) != "ε") {
+                    if (!currentBlockRightEquation.get(j).contains("L") && currentBlockRightEquation.get(j) != "e") {
                         ignoreGroup.add(currentBlockRightEquation.get(j));
                     }
                 }
@@ -2003,7 +2036,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                             groupState.put(allState.get(j), currentBlockRightEquation.get(k).substring(0, currentBlockRightEquation.get(k).indexOf(allState.get(j)) - 1));
                             countMemberGroup.put(allState.get(j), 1);
                         } else if (currentBlockRightEquation.get(k).contains(allState.get(j)) && groupState.containsKey(allState.get(j))) {
-                            groupState.replace(allState.get(j), groupState.get(allState.get(j)) + "⋃" + currentBlockRightEquation.get(k).substring(0, currentBlockRightEquation.get(k).indexOf(allState.get(j)) - 1));
+                            groupState.replace(allState.get(j), groupState.get(allState.get(j)) + "?" + currentBlockRightEquation.get(k).substring(0, currentBlockRightEquation.get(k).indexOf(allState.get(j)) - 1));
                             countMemberGroup.replace(allState.get(j), countMemberGroup.get(allState.get(j)) + 1);
                         }
                     }
@@ -2021,9 +2054,9 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                             count++;
                         } else {
                             if (countMemberGroup.get(allState.get(j)) != 1) {
-                                newRight += ("⋃(" + groupState.get(allState.get(j)) + ")" + "L" + allState.get(j));
+                                newRight += ("?(" + groupState.get(allState.get(j)) + ")" + "L" + allState.get(j));
                             } else {
-                                newRight += ("⋃" + groupState.get(allState.get(j)) + "L" + allState.get(j));
+                                newRight += ("?" + groupState.get(allState.get(j)) + "L" + allState.get(j));
                             }
                         }
 
@@ -2034,12 +2067,12 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                         if (newRight.length() == 0) {
                             newRight += (ignoreGroup.get(j));
                         } else {
-                            newRight += ("⋃" + ignoreGroup.get(j));
+                            newRight += ("?" + ignoreGroup.get(j));
                         }
                     }
                 }
-                // if(currentBlockEquation[1].contains("ε")){
-                //     newRight += "Uε";
+                // if(currentBlockEquation[1].contains("e")){
+                //     newRight += "Ue";
                 // }
                 if (newRight.length() != 0) {
                     allEquation.add(i, (currentBlockEquation[0] + "=" + newRight));
@@ -2157,7 +2190,7 @@ class Transition {
     Transition(State a, State b) {
         this.stateA = a;
         this.stateB = b;
-        this.text = "ε";
+        this.text = "e";
         this.isStart = a == null;
         this.isSelect = false;
         this.isSelf = a == b;
