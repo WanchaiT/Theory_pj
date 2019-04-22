@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -77,18 +78,22 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     JFrame frameInfo = new JFrame("Info");
     JFrame frameStep = new JFrame("Step");
     JFrame frameRun = new JFrame("Run");
+    JFrame frameRegToNFA = new JFrame("Regular Expression to NFA");
+    
     
     JPanel boxShowInfo = new JPanel();
     JPanel boxShowStep = new JPanel();
     JPanel boxSave = new JPanel();
     JPanel boxOpen = new JPanel();
     JPanel boxRun = new JPanel();
+    JPanel boxRegToNFA = new JPanel();
     
     JButton runButt = new JButton();
     JButton showInfoButt = new JButton();
     JButton saveButt = new JButton();
     JButton openButt = new JButton();
     JButton okRunButt = new JButton();
+    JButton okRunButt2 = new JButton();
     JButton run_1_Butt = new JButton();
     JButton run_2_Butt = new JButton();
     JButton stepByStepButt = new JButton();
@@ -96,20 +101,23 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     JButton showStringAccButt = new JButton();
     JButton regExpToNFAButt = new JButton();
     JButton DFAToRegExpButt = new JButton();
-    JButton unionOfDFAButt = new JButton();
     
     JFileChooser pathSave = new JFileChooser();
     JFileChooser pathOpen = new JFileChooser();
     
     JTextField inString = new JTextField(40);
+    JTextField inString2 = new JTextField(40);
     
     JLabel showStringAccLabel = new JLabel();
     JLabel showInfoLabel = new JLabel("",SwingConstants.CENTER);
     JLabel msgEnterString  = new JLabel();
     JLabel msgFile = new JLabel();
     JLabel showCurrentFile = new JLabel();
+    
+    JComboBox listPathRun = new JComboBox();
     //-----###e
-
+    JPanel menubar = new JPanel();
+    int shift = 80;
     DrawingFiniteAutomata() {
         super("canvas");
 
@@ -148,20 +156,23 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         boxRun.setBackground(Color.white);
         frameRun.add(boxRun);
         
+        boxRegToNFA.setBackground(Color.white);
+        frameRegToNFA.add(boxRegToNFA);
+        
         //label
         msgEnterString.setText("Enter String");
-                
+        
         msgFile.setText("File");
-                msgFile.setBounds(1100, 130, 80, 20);
+                msgFile.setBounds(1100+shift, 130, 80, 20);
                 add(msgFile);
                 
                 
-        showCurrentFile.setBounds(1200, 130, 128, 23);
+        showCurrentFile.setBounds(1200+shift, 130, 128, 23);
         getContentPane().add(showCurrentFile);
         
         //button
         saveButt.setText("save");
-                saveButt.setBounds(1100, 100, 128, 23);
+                saveButt.setBounds(1100+shift, 100, 128, 23);
                 getContentPane().add(saveButt);
                 saveButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
@@ -174,7 +185,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 		});
                 
         openButt.setText("open");
-                openButt.setBounds(1250, 100, 128, 23);
+                openButt.setBounds(1250+shift, 100, 128, 23);
                 getContentPane().add(openButt);
                 openButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
@@ -187,7 +198,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 		});
                 
         runButt.setText("Run");
-		runButt.setBounds(1100, 200, 278, 23);
+		runButt.setBounds(1100+shift, 200, 278, 23);
 		getContentPane().add(runButt);
                 runButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
@@ -201,27 +212,20 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                             okRunButtAction(e);
 			}
 		});
-                    
-        run_1_Butt.setText("Run 1");
-                run_1_Butt.setBounds(1100, 230, 128, 23);
-                getContentPane().add(run_1_Butt);
-                run_1_Butt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-                            
-			}
-		});
-               
-        run_2_Butt.setText("Run 2");
-                run_2_Butt.setBounds(1100, 260, 128, 23);
-                getContentPane().add(run_2_Butt);
-                run_2_Butt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-                            
-			}
-		});
                 
+        okRunButt2.setText("Ok");
+                okRunButt2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	
+                            okRunButtAction2(e);
+			}
+		});        
+                    
+    
+        listPathRun.setBounds(1100+shift, 230, 128 , 23);
+        getContentPane().add(listPathRun);
+
         stepByStepButt.setText("Step by Step");
-                stepByStepButt.setBounds(1250, 230, 128, 23);
+                stepByStepButt.setBounds(1250+shift, 230, 128, 23);
 		getContentPane().add(stepByStepButt);
                 stepByStepButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
@@ -230,7 +234,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 		});
                 
         runContinueButt.setText("Run continue");
-                runContinueButt.setBounds(1250, 260, 128, 23);
+                runContinueButt.setBounds(1250+shift, 260, 128, 23);
 		getContentPane().add(runContinueButt);
                 runContinueButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
@@ -239,7 +243,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 		});
                 
         showStringAccButt.setText("Show String Accept");
-                showStringAccButt.setBounds(1100, 320, 278, 23);
+                showStringAccButt.setBounds(1100+shift, 320, 278, 23);
 		getContentPane().add(showStringAccButt);
                 showStringAccButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
@@ -248,16 +252,16 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 		});
                 
         regExpToNFAButt.setText("Regular Expression to NFA");
-                regExpToNFAButt.setBounds(1100, 350, 278, 23);
+                regExpToNFAButt.setBounds(1100+shift, 350, 278, 23);
 		getContentPane().add(regExpToNFAButt);
                 regExpToNFAButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-                             
+                            regExpToNFAButtAction(e); 
 			}
 		});
         
         DFAToRegExpButt.setText("DFA to Regular Expression");
-                DFAToRegExpButt.setBounds(1100, 410, 278, 23);
+                DFAToRegExpButt.setBounds(1100+shift, 410, 278, 23);
 		getContentPane().add(DFAToRegExpButt);
                 DFAToRegExpButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
@@ -265,35 +269,72 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 			}
 		});
                 
-        unionOfDFAButt.setText("Union of DFA");
-                unionOfDFAButt.setBounds(1100, 440, 278, 23);
-		getContentPane().add(unionOfDFAButt);
-                unionOfDFAButt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	
-                             
-			}
-		});
                 
         showInfoButt.setText("Show Info");
-                showInfoButt.setBounds(1100, 600, 278, 23);
+                showInfoButt.setBounds(1100+shift, 600, 278, 23);
 		getContentPane().add(showInfoButt);
                 showInfoButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-                            
+                            showInfoButtAction(e);
 			}
 		});
                 
       
         //-----###e     
+        menubar.setBackground(Color.cyan);
+        menubar.setBounds(1150, 0, 350, 1000);
+        c.setBounds(0, 0, 1150, 1000);
         add(c);
+        add(menubar);
         setSize(1500, 1000);
         show();
     }
     
     //-----###s
+    void regExpToNFAButtAction(ActionEvent e){
+        
+        boxRegToNFA.add(msgEnterString);
+        boxRegToNFA.add(inString2);
+        boxRegToNFA.add(okRunButt2);
+
+        frameRegToNFA.add(boxRegToNFA);
+        frameRegToNFA.setSize(500,100);
+        frameRegToNFA.setVisible(true);
+        
+    }  
+    
+    void okRunButtAction2(ActionEvent e){
+            frameRegToNFA.setVisible(false);
+            Automata nfa = regexToNFA(inString2.getText().trim());
+            states = nfa.sts;
+            transitions = nfa.trs;
+            alphabet = nfa.alp;
+            Automata.x = 200;
+            Automata.y = 200;
+            System.out.println("Regular expression to NFA Successed !!!");
+            draw();
+    }
+    
     void okRunButtAction(ActionEvent e){
         frameRun.setVisible(false);
-        System.out.println(inString.getText());
+        showPathButtAction(e);
+        listPathRun.removeAllItems();
+        ArrayList<ArrayList<State>> ohoh = getAllStepFromStr(inString.getText().trim());
+        
+        String[] eiei = new String[ohoh.size()];
+        
+        for(int i = 0 ;i < ohoh.size() ;i++){
+            
+            String s = ohoh.get(i).get(0).text;
+            for(int j=0;j<ohoh.get(i).size();j++){
+                s += ","+ohoh.get(i).get(j).text;
+            }
+            listPathRun.addItem(s);
+        }
+        
+        
+        //listPathRun.add
+        System.out.println(inString.getText() + "eiei");
     }
     
     void saveButtAction(ActionEvent e) throws IOException{
@@ -324,6 +365,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
             path = filePath.getPath();
             System.out.println(path);
             open(path);
+            draw();
         }
         
         showCurrentFile.setText(nameFile(path));
@@ -340,7 +382,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 
     }
     
-    void showStringAccButtAction(ActionEvent e){
+    void showPathButtAction(ActionEvent e){
         String strAllStep = "";
         ArrayList<ArrayList<State>> allStep = getAllStepFromStr(inString.getText().trim());
         if (allStep == null) {
@@ -358,6 +400,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
                     }
                     strAllStep += " , " + all.get(j).text;
                 }
+                strAllStep += "<br/>";
             }
         }
         
@@ -365,6 +408,25 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         boxShowStep.add(showStringAccLabel);
         
         frameStep.setSize(500,300);
+        frameStep.setVisible(true);
+    } 
+    
+    void showStringAccButtAction(ActionEvent e){
+        String strAllStep = "<html>";
+        ArrayList<String> allStep = getSubLanguage(5);
+        int i = 1;
+        for(String s:allStep){
+            strAllStep +=  s + " ";
+            if(i++ % 10 == 0){
+                strAllStep += "<br/>";
+            }
+            
+        }
+        
+        showStringAccLabel.setText(strAllStep);
+        boxShowStep.add(showStringAccLabel);
+        
+        frameStep.setSize(600,500);
         frameStep.setVisible(true);
     }
     
