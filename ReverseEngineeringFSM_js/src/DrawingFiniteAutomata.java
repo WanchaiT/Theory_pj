@@ -4,9 +4,11 @@ import com.google.gson.GsonBuilder;
 import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -74,8 +76,16 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     Temp temp = null; //temp link
 
     //-----###s
-    int index;
-    
+    Toolkit toolkit = Toolkit.getDefaultToolkit();  
+    Dimension screenSize = toolkit.getScreenSize();  
+  
+  //Calculate the frame location  
+    int x = (screenSize.width - getWidth()) / 2;  
+     int y = (screenSize.height - getHeight()) / 2;  
+   
+  //Set the new frame location  
+    int index = 0;
+
     ArrayList<Object> allStep = new ArrayList<Object>();
 
     JFrame frameInfo = new JFrame("Info");
@@ -118,11 +128,13 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     JLabel msgFile = new JLabel();
     JLabel showCurrentFile = new JLabel();
     JLabel showReg = new JLabel();
+    JLabel msgInString = new JLabel();
+    JLabel myString = new JLabel();
 
     JComboBox listPathRun = new JComboBox();
     //-----###e
     JPanel menubar = new JPanel();
-    int shift = 80;
+    int shift = -50;
 
     DrawingFiniteAutomata() {
         super("canvas");
@@ -174,9 +186,18 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         msgFile.setText("File");
         msgFile.setBounds(1100 + shift, 130, 80, 20);
         add(msgFile);
+        
+        msgInString.setText("Input String");
+        msgInString.setBounds(1100 + shift, 160, 80, 20);
+        add(msgInString);
+        
+        myString.setText(inString.getText());
+        myString.setBounds(1200 + shift, 160,100 , 20);
+        add(myString);
 
         showCurrentFile.setBounds(1200 + shift, 130, 128, 23);
         getContentPane().add(showCurrentFile);
+        
 
         //button
         saveButt.setText("save");
@@ -236,7 +257,11 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         getContentPane().add(stepByStepButt);
         stepByStepButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                stepByStepButtAction(e);
+                try {
+                    stepByStepButtAction(e);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(DrawingFiniteAutomata.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -291,8 +316,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
 
         //-----###e     
         menubar.setBackground(Color.cyan);
-        menubar.setBounds(1150, 0, 350, 1000);
-        c.setBounds(0, 0, 1150, 1000);
+        menubar.setBounds(1000 + shift, 0, 350, 1000);
+        c.setBounds(0, 0, 1080 + shift, 1000);
         add(c);
         add(menubar);
         setSize(1500, 1000);
@@ -300,36 +325,55 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     }
 
     //-----###s
-    void stepByStepButtAction(ActionEvent e){
-        
-    } 
-    
-    void runContinueButtAction(ActionEvent e) throws InterruptedException {
-        ArrayList<State> step = getAllStepFromStr(inString.getText().trim()).get(index);
-        Transition t = null;
+    void stepByStepButtAction(ActionEvent e) throws InterruptedException {
+        ArrayList<Object> path = createPath();
+        Object obj = path.get(index);
+        if (obj instanceof State) {
+            selected(((State) obj).x, ((State) obj).y);
+        } else {
+            selected(((Transition) obj).curveX, ((Transition) obj).curveY);
+        }
+        draw();
+        Thread.sleep(400);
+        index ++;
+        if(index>=path.size()){
+            index = 0;
+        }
+    }
+
+    ArrayList<Object> createPath() {
+        index = 0;
+        ArrayList<Object> path = new ArrayList<>();
+        ArrayList<State> step = getAllStepFromStr(inString.getText().trim()).get(listPathRun.getSelectedIndex());
         for (Transition tt : transitions) {
             if (tt.stateA == null) {
-                t = tt;
+                path.add(tt);
                 break;
             }
         }
-        selected(t.x, t.y);
-        draw();
-        Thread.sleep(400);
-        selected(step.get(0).x, step.get(0).y);
-        draw();
-        Thread.sleep(400);
+        path.add(step.get(0));
         for (int i = 1; i < step.size(); i++) {
+            if (step.get(i) == null) {
+                break;
+            }
             Transition tt = getTransition(step.get(i - 1), step.get(i));
-            selected(tt.curveX, tt.curveY);
-            draw();
-            Thread.sleep(400);
-            selected(step.get(i).x, step.get(i).y);
-            draw();
-            Thread.sleep(400);
-
+            path.add(tt);
+            path.add(step.get(i));
         }
+        return path;
+    }
 
+    void runContinueButtAction(ActionEvent e) throws InterruptedException {
+        ArrayList<Object> path = createPath();
+        for (Object obj : path) {
+            if (obj instanceof State) {
+                selected(((State) obj).x, ((State) obj).y);
+            } else {
+                selected(((Transition) obj).curveX, ((Transition) obj).curveY);
+            }
+            draw();
+            Thread.sleep(400);
+        }
     }
 
     void DFAToRegExpButtAction(ActionEvent e) {
@@ -348,7 +392,7 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         boxRegToNFA.add(okRunButt2);
 
         frameRegToNFA.add(boxRegToNFA);
-        frameRegToNFA.setSize(500, 100);
+        frameRegToNFA.setSize(500, 150);
         frameRegToNFA.setVisible(true);
 
     }
@@ -366,26 +410,26 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
     }
 
     void okRunButtAction(ActionEvent e) {
-        frameRun.setVisible(false);
-        showPathButtAction(e);
-        listPathRun.removeAllItems();
-        ArrayList<ArrayList<State>> ohoh = getAllStepFromStr(inString.getText().trim());
 
-        String[] eiei = new String[ohoh.size()];
+        frameRun.setVisible(false);
+        //showPathButtAction(e);
+        listPathRun.removeAllItems();
+        myString.setText(inString.getText());
+        ArrayList<ArrayList<State>> ohoh = getAllStepFromStr(inString.getText().trim());
 
         for (int i = 0; i < ohoh.size(); i++) {
 
             String s = ohoh.get(i).get(0).text;
-            for (int j = 0; j < ohoh.get(i).size(); j++) {
+            for (int j = 1; j < ohoh.get(i).size(); j++) {
+                if (ohoh.get(i).get(j) == null) {
+                    s += ", Trap";
+                    continue;
+                }
                 s += "," + ohoh.get(i).get(j).text;
             }
             listPathRun.addItem(s);
         }
 
-        index = listPathRun.getSelectedIndex();
-
-        //listPathRun.add
-        System.out.println(inString.getText() + "eiei");
     }
 
     void saveButtAction(ActionEvent e) throws IOException {
@@ -428,7 +472,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         boxRun.add(okRunButt);
 
         frameRun.add(boxRun);
-        frameRun.setSize(500, 100);
+        frameRun.setBounds(x-250, y-75, 500, 150);
+        //frameRun.setSize(500, 150);
         frameRun.setVisible(true);
 
     }
@@ -486,7 +531,8 @@ public class DrawingFiniteAutomata extends JFrame implements MouseListener, Mous
         boxShowInfo.add(showInfoLabel);
         boxShowInfo.setAutoscrolls(true);
 
-        frameInfo.setSize(200, 500);
+        //frameInfo.setSize(200, 500);
+        frameInfo.setBounds(x-150, y-250, 300, 500);
         frameInfo.setVisible(true);
     }
 
